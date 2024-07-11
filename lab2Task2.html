@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery-3.7.1.js"></script>
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container {
+            width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .container header {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        .container section {
+            font-size: 1em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .container div {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .show {
+            background-color: #4caf50;
+            color: #fff;
+        }
+        .hide {
+            background-color: #f44336;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons">
+        <button class="show">Show</button>
+        <button class="hide">Hide</button>
+    </div>
+    <div class="container"></div>
+
+    <script>
+        $(document).ready(function() {
+            $(".show").click(function() {
+                $(".container").empty(); // تفريغ المحتوى الحالي
+                $.get("https://jsonplaceholder.typicode.com/posts", function(data) {
+                    data.forEach(function(el) {
+                        var parentDiv = $('<div></div>');
+                        parentDiv.append(`<header>${el.title}</header><section>${el.body}</section>`);
+                        $(".container").append(parentDiv);
+                    });
+                });
+                $(".container").show();
+            });
+
+            $(".hide").click(function() {
+                $(".container").hide();
+            });
+        });
+    </script>
+</body>
+</html>
